@@ -1,5 +1,9 @@
+//Angular httpClient
+import { HttpClientModule } from '@angular/common/http';
+
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
 
 const routes: Routes = [];
 
