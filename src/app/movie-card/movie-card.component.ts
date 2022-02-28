@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { DirectorCardComponent } from '../director-card/director-card.component';
 import { GenreCardComponent } from '../genre-card/genre-card.component';
+import { SynopsisCardComponent } from '../synopsis-card/synopsis-card.component';
 @Component({
   selector: 'app-movie-card',
   templateUrl: './movie-card.component.html',
@@ -41,6 +42,16 @@ export class MovieCardComponent implements OnInit {
   ): void {
     this.dialog.open(GenreCardComponent, {
       data: {name: name, description: description},
+      width: '360px',
+    });
+  }
+
+  openSynopsisDialog(
+    title: string,
+    description: string,
+  ): void {
+    this.dialog.open(SynopsisCardComponent, {
+      data: {title: title, description: description},
       width: '360px',
     });
   }
