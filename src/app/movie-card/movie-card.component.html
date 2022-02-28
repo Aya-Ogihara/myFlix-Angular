@@ -13,7 +13,7 @@
       alt="{{ movie.Title }}"
     />
     <mat-card-actions>
-      <button mat-stroked-button color="accent">Genre</button>
+      <button mat-stroked-button color="accent" (click)="openGenreDialog(movie.Genre.Name, movie.Genre.Description)" >Genre</button>
       <button mat-stroked-button color="accent" (click)="openDirectorDialog(movie.Director.Name, movie.Director.Bio)">Director</button>
       <button mat-stroked-button color="accent">Synopsis</button>
       <mat-icon>favorite_border</mat-icon>
