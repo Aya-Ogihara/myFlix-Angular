@@ -12,17 +12,19 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { UserRegistrationFormComponent } from './user-registration-form/user-registration-form.component';
 import { MovieCardComponent } from './movie-card/movie-card.component';
 import { UserLoginFormComponent } from './user-login-form/user-login-form.component';
 import { WelcomePageComponent } from './welcome-page/welcome-page.component';
+import { DirectorCardComponent } from './director-card/director-card.component';
 
 const appRoutes: Routes = [
   { path: 'welcome', component: WelcomePageComponent },
   { path: 'movies', component: MovieCardComponent },
-  { path: '', redirectTo: 'welcome', pathMatch: 'prefix'}
-]
+  { path: '', redirectTo: 'welcome', pathMatch: 'prefix' },
+];
 
 @NgModule({
   declarations: [
@@ -30,7 +32,8 @@ const appRoutes: Routes = [
     UserRegistrationFormComponent,
     MovieCardComponent,
     UserLoginFormComponent,
-    WelcomePageComponent
+    WelcomePageComponent,
+    DirectorCardComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,9 +47,10 @@ const appRoutes: Routes = [
     MatFormFieldModule,
     MatDialogModule,
     MatSnackBarModule,
-    FormsModule
+    MatIconModule,
+    FormsModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

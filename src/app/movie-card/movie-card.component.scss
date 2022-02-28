@@ -1,0 +1,21 @@
+.movie-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  margin: 30px 0;
+
+  &__img{
+    width: 300px;
+  }
+}
+
+.mat-card-actions .mat-stroked-button {
+  margin: 0;
+}
+
+.mat-card-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
