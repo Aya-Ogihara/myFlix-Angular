@@ -21,6 +21,7 @@ import { WelcomePageComponent } from './welcome-page/welcome-page.component';
 import { DirectorCardComponent } from './director-card/director-card.component';
 import { GenreCardComponent } from './genre-card/genre-card.component';
 import { SynopsisCardComponent } from './synopsis-card/synopsis-card.component';
+import { ProfilePageComponent } from './profile-page/profile-page.component';
 
 const appRoutes: Routes = [
   { path: 'welcome', component: WelcomePageComponent },
@@ -38,6 +39,7 @@ const appRoutes: Routes = [
     DirectorCardComponent,
     GenreCardComponent,
     SynopsisCardComponent,
+    ProfilePageComponent,
   ],
   imports: [
     BrowserModule,
