@@ -13,20 +13,21 @@ import { UserDeleteFormComponent } from '../user-delete-form/user-delete-form.co
 @Component({
   selector: 'app-profile-page',
   templateUrl: './profile-page.component.html',
-  styleUrls: ['./profile-page.component.scss']
+  styleUrls: ['./profile-page.component.scss'],
 })
 export class ProfilePageComponent implements OnInit {
   user: any = {};
-  FavoriteMovies: any[] = []
-  movies: any[] = []
-  userFavorite: any[] = []
+  FavoriteMovies: any[] = [];
+  movies: any[] = [];
+  userFavorite: any[] = [];
+  inFavorite: boolean = false;
 
   constructor(
     public fetchApiData: UserRegistrationService,
     public dialog: MatDialog,
     public snackbar: MatSnackBar,
-    public router: Router,
-  ) { }
+    public router: Router
+  ) {}
 
   ngOnInit(): void {
     this.getUserInfo();
@@ -39,7 +40,7 @@ export class ProfilePageComponent implements OnInit {
     this.fetchApiData.getUser(user).subscribe((res: any) => {
       this.user = res;
       //console.log(res)
-    })
+    });
   }
 
   getFavoriteMovies(): void {
@@ -47,7 +48,7 @@ export class ProfilePageComponent implements OnInit {
     this.fetchApiData.getUser(user).subscribe((res: any) => {
       this.FavoriteMovies = res.FavoriteMovies;
       //console.log(this.FavoriteMovies);
-      return this.FavoriteMovies
+      return this.FavoriteMovies;
     });
   }
 
@@ -61,24 +62,24 @@ export class ProfilePageComponent implements OnInit {
   }
 
   userFavoriteMovies(): void {
-    let res = []
-    for(let i = 0; i < this.FavoriteMovies.length; i++) {
-      res.push(this.movies.find(e => e._id === this.FavoriteMovies[i]))
+    let res = [];
+    for (let i = 0; i < this.FavoriteMovies.length; i++) {
+      res.push(this.movies.find((e) => e._id === this.FavoriteMovies[i]));
     }
     //console.log(res)
-    this.userFavorite = res
+    this.userFavorite = res;
   }
 
   goMovies(): void {
-    this.router.navigate(['movies'])
+    this.router.navigate(['movies']);
   }
 
   userLogout(): void {
     localStorage.clear();
     this.snackbar.open('You successfully logged out. see you soon!', 'Bye', {
-      duration: 4000
+      duration: 4000,
     });
-    this.router.navigate(['welcome'])
+    this.router.navigate(['welcome']);
   }
 
   deleteUserDialog(): void {
@@ -115,12 +116,11 @@ export class ProfilePageComponent implements OnInit {
   }
 
   addFavoriteMovie(movie: string, title: string): void {
-    const user = localStorage.getItem('user')
+    const user = localStorage.getItem('user');
     this.fetchApiData.addFavorite(user, movie).subscribe((res: any) => {
       this.snackbar.open(`${title} has been added to your favorites!`, 'OK', {
         duration: 4000,
       });
-      console.log(this.FavoriteMovies);
       this.ngOnInit();
     });
     return this.getFavoriteMovies();
@@ -140,13 +140,22 @@ export class ProfilePageComponent implements OnInit {
     return this.getFavoriteMovies();
   }
 
-  isFavorite(movie: string): boolean {
-    return this.FavoriteMovies.some(item => item._id === movie)
+  isFavorite(movie: string): any {
+    //console.log(movie)
+    if (this.FavoriteMovies.some((item) => item === movie)) {
+      this.inFavorite = true;
+      return this.inFavorite;
+    } else {
+      this.inFavorite = false;
+      return (this.inFavorite = false);
+    }
   }
 
   toggleFavorite(movie: any): void {
-    this.isFavorite(movie._id)
-      ? this.removeFavoriteMovie(movie._id, movie.Title)
-      : this.addFavoriteMovie(movie._id, movie.Title)
+    if (this.isFavorite(movie._id)) {
+      this.removeFavoriteMovie(movie._id, movie.Title);
+    } else {
+      this.addFavoriteMovie(movie._id, movie.Title);
+    }
   }
 }
