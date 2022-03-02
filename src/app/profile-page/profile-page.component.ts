@@ -7,6 +7,8 @@ import { Router } from '@angular/router';
 import { DirectorCardComponent } from '../director-card/director-card.component';
 import { GenreCardComponent } from '../genre-card/genre-card.component';
 import { SynopsisCardComponent } from '../synopsis-card/synopsis-card.component';
+import { UserUpdateFormComponent } from '../user-update-form/user-update-form.component';
+import { UserDeleteFormComponent } from '../user-delete-form/user-delete-form.component';
 
 @Component({
   selector: 'app-profile-page',
@@ -15,7 +17,6 @@ import { SynopsisCardComponent } from '../synopsis-card/synopsis-card.component'
 })
 export class ProfilePageComponent implements OnInit {
   user: any = {};
-  userName = localStorage.getItem('user')
   FavoriteMovies: any[] = []
   movies: any[] = []
   userFavorite: any[] = []
@@ -80,14 +81,17 @@ export class ProfilePageComponent implements OnInit {
     this.router.navigate(['welcome'])
   }
 
-  deleteUser(): void {
-    this.fetchApiData.deleteUser(this.userName).subscribe((res) => {
-      this.snackbar.open('Your account has been removed', 'Bye', {
-        duration: 4000
-      });
-      localStorage.clear();
+  deleteUserDialog(): void {
+    this.dialog.open(UserDeleteFormComponent, {
+      width: '360px',
     });
-    this.router.navigate(['welcome'])
+    // this.fetchApiData.deleteUser(this.userName).subscribe((res) => {
+    //   this.snackbar.open('Your account has been removed', 'Bye', {
+    //     duration: 4000
+    //   });
+    //   localStorage.clear();
+    // });
+    // this.router.navigate(['welcome'])
   }
 
   openDirectorDialog(name: string, bio: string): void {
