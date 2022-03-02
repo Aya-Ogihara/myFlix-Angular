@@ -2,31 +2,36 @@ import { Component, OnInit, Input } from '@angular/core';
 import { UserRegistrationService } from '../fetch-api-data.service';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-user-registration-form',
-  templateUrl: './user-registration-form.component.html',
-  styleUrls: ['./user-registration-form.component.scss'],
+  selector: 'app-user-update-form',
+  templateUrl: './user-update-form.component.html',
+  styleUrls: ['./user-update-form.component.scss']
 })
-export class UserRegistrationFormComponent implements OnInit {
+export class UserUpdateFormComponent implements OnInit {
   @Input() userData = { Username: '', Password: '', Email: '', Birthday: '' };
 
   constructor(
     public fetchApiData: UserRegistrationService,
-    public dialogRef: MatDialogRef<UserRegistrationFormComponent>,
+    public dialogRef: MatDialogRef<UserUpdateFormComponent>,
+    public router: Router,
     public snackBar: MatSnackBar
-  ) {}
+  ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
-  registerUser(): void {
-    this.fetchApiData.userRegistration(this.userData).subscribe(
+  updateUser(): void {
+    const user = localStorage.getItem('user')
+    this.fetchApiData.updateUser(user, this.userData).subscribe(
       (result) => {
         this.dialogRef.close();
         console.log(result);
-        this.snackBar.open('User registered successfully! Please login', 'OK', {
+        this.snackBar.open('Your account data has been updated! Please re-login', 'OK', {
           duration: 4000,
         });
+        this.router.navigate(['welcome'])
       },
       (result) => {
         console.log(result);
@@ -34,6 +39,10 @@ export class UserRegistrationFormComponent implements OnInit {
           duration: 4000,
         });
       }
-    );
+    )
+  }
+
+  closeDialog(): void {
+    this.dialogRef.close();
   }
 }

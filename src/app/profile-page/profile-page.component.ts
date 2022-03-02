@@ -3,18 +3,23 @@ import { UserRegistrationService } from '../fetch-api-data.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+
 import { DirectorCardComponent } from '../director-card/director-card.component';
 import { GenreCardComponent } from '../genre-card/genre-card.component';
 import { SynopsisCardComponent } from '../synopsis-card/synopsis-card.component';
+import { UserUpdateFormComponent } from '../user-update-form/user-update-form.component';
+import { UserDeleteFormComponent } from '../user-delete-form/user-delete-form.component';
+
 @Component({
-  selector: 'app-movie-card',
-  templateUrl: './movie-card.component.html',
-  styleUrls: ['./movie-card.component.scss'],
+  selector: 'app-profile-page',
+  templateUrl: './profile-page.component.html',
+  styleUrls: ['./profile-page.component.scss'],
 })
-export class MovieCardComponent implements OnInit {
-  movies: any[] = [];
+export class ProfilePageComponent implements OnInit {
+  user: any = {};
   FavoriteMovies: any[] = [];
-  user: any[] = [];
+  movies: any[] = [];
+  userFavorite: any[] = [];
   inFavorite: boolean = false;
 
   constructor(
@@ -25,15 +30,16 @@ export class MovieCardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getMovies();
+    this.getUserInfo();
     this.getFavoriteMovies();
+    this.getMovies();
   }
 
-  getMovies(): void {
-    this.fetchApiData.getAllMovies().subscribe((res: any) => {
-      this.movies = res;
-      //console.log(this.movies);
-      return this.movies;
+  getUserInfo(): void {
+    const user = localStorage.getItem('user');
+    this.fetchApiData.getUser(user).subscribe((res: any) => {
+      this.user = res;
+      //console.log(res)
     });
   }
 
@@ -42,19 +48,50 @@ export class MovieCardComponent implements OnInit {
     this.fetchApiData.getUser(user).subscribe((res: any) => {
       this.FavoriteMovies = res.FavoriteMovies;
       //console.log(this.FavoriteMovies);
+      return this.FavoriteMovies;
     });
   }
 
-  goProfile(): void {
-    this.router.navigate(['profile']);
+  getMovies(): void {
+    this.fetchApiData.getAllMovies().subscribe((res: any) => {
+      this.movies = res;
+      //console.log(this.movies);
+      this.userFavoriteMovies();
+      return this.movies;
+    });
+  }
+
+  userFavoriteMovies(): void {
+    let res = [];
+    for (let i = 0; i < this.FavoriteMovies.length; i++) {
+      res.push(this.movies.find((e) => e._id === this.FavoriteMovies[i]));
+    }
+    //console.log(res)
+    this.userFavorite = res;
+  }
+
+  goMovies(): void {
+    this.router.navigate(['movies']);
   }
 
   userLogout(): void {
     localStorage.clear();
-    this.snackbar.open('You successfully logged out. see you soon!', 'OK', {
-      duration: 2000,
+    this.snackbar.open('You successfully logged out. see you soon!', 'Bye', {
+      duration: 4000,
     });
     this.router.navigate(['welcome']);
+  }
+
+  deleteUserDialog(): void {
+    this.dialog.open(UserDeleteFormComponent, {
+      width: '360px',
+    });
+  }
+
+  updateUserDialog(): void {
+    this.dialog.open(UserUpdateFormComponent, {
+      width: '280px',
+    });
   }
 
   openDirectorDialog(name: string, bio: string): void {
@@ -104,12 +141,13 @@ export class MovieCardComponent implements OnInit {
   }
 
   isFavorite(movie: string): any {
+    //console.log(movie)
     if (this.FavoriteMovies.some((item) => item === movie)) {
       this.inFavorite = true;
       return this.inFavorite;
     } else {
       this.inFavorite = false;
-      return this.inFavorite;
+      return (this.inFavorite = false);
     }
   }
 

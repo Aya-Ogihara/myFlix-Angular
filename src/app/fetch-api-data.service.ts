@@ -123,9 +123,9 @@ export class UserRegistrationService {
 
 
   // Add a movie to favorite Movies
-  addFavorite(user: any, movie: any): Observable<any> {
+  addFavorite(user: any, movieId: any): Observable<any> {
     const token = localStorage.getItem('token');
-    return this.http.post(`${apiUrl}/users/${user}/movies/${movie}`, {headers: new HttpHeaders(
+    return this.http.post(`${apiUrl}/users/${user}/movies/${movieId}`, null, {headers: new HttpHeaders(
       {
         Authorization: 'Bearer ' + token
       }
@@ -168,8 +168,9 @@ export class UserRegistrationService {
 
 
   // Delete a movie from the favorite movies
-  deleteFavorite(user: any, movie: any): Observable<any> {
+  deleteFavorite(movie: any): Observable<any> {
     const token = localStorage.getItem('token');
+    const user = localStorage.getItem('user');
     return this.http.delete(`${apiUrl}/users/${user}/movies/${movie}`,{headers: new HttpHeaders(
       {
         Authorization: 'Bearer ' + token
