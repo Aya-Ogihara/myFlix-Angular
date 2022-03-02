@@ -2,6 +2,10 @@
   display: flex;
   justify-content: space-between;
   padding: 10px 50px;
+
+  &__logo {
+    cursor: pointer;
+  }
 }
 
 .navigation__btn {
@@ -11,21 +15,43 @@
 .main {
   max-width: 1140px;
   padding: 20px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+margin: 0 auto;
 }
 
-.profiles {
-  
-}
 
 .profile {
-  width: 500px;
-  background: #999;
+  width: 300px;
+  margin: 0 auto;
 }
 
 .favorite-movies{
-  width: 500px;
-  background: pink;
+  margin-top: 30px;
+  width: 100%;
+}
+
+.favorite-button {
+  display: block;
+  margin: 0 auto;
+}
+
+.movie-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px 0;
+
+  &__img{
+    width: 300px;
+  }
+}
+
+.mat-card-actions .mat-stroked-button {
+  margin: 0;
+}
+
+.mat-card-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 }

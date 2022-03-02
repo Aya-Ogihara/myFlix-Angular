@@ -22,6 +22,8 @@ import { DirectorCardComponent } from './director-card/director-card.component';
 import { GenreCardComponent } from './genre-card/genre-card.component';
 import { SynopsisCardComponent } from './synopsis-card/synopsis-card.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
+import { UserUpdateFormComponent } from './user-update-form/user-update-form.component';
+import { UserDeleteFormComponent } from './user-delete-form/user-delete-form.component';
 
 const appRoutes: Routes = [
   { path: 'welcome', component: WelcomePageComponent },
@@ -41,6 +43,8 @@ const appRoutes: Routes = [
     GenreCardComponent,
     SynopsisCardComponent,
     ProfilePageComponent,
+    UserUpdateFormComponent,
+    UserDeleteFormComponent,
   ],
   imports: [
     BrowserModule,
