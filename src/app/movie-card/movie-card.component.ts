@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserRegistrationService } from '../fetch-api-data.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
+import { Router } from '@angular/router';
 import { DirectorCardComponent } from '../director-card/director-card.component';
 import { GenreCardComponent } from '../genre-card/genre-card.component';
 import { SynopsisCardComponent } from '../synopsis-card/synopsis-card.component';
@@ -15,11 +15,12 @@ export class MovieCardComponent implements OnInit {
   movies: any[] = [];
   FavoriteMovies: any[] = [];
   user: any[] = [];
-  
+
   constructor(
     public fetchApiData: UserRegistrationService,
     public dialog: MatDialog,
-    public snackbar: MatSnackBar
+    public snackbar: MatSnackBar,
+    public router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -41,6 +42,10 @@ export class MovieCardComponent implements OnInit {
       this.FavoriteMovies = res.FavoriteMovies;
       //console.log(this.FavoriteMovies);
     });
+  }
+
+  goProfile(): void {
+    this.router.navigate(['profile'])
   }
 
   openDirectorDialog(name: string, bio: string): void {
