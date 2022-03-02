@@ -32,7 +32,7 @@
         <p>Birthday: {{ user.Birthday | date }}</p>
       </mat-card-content>
       <mat-card-actions>
-        <button mat-flat-button color="accent">Update my profile</button>
+        <button mat-flat-button color="accent" (click)="updateUserDialog()">Update my profile</button>
         <button mat-stroked-button color="accent" (click)="deleteUserDialog()">Delete account</button>
       </mat-card-actions>
     </mat-card>

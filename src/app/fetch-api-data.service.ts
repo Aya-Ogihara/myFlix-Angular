@@ -123,10 +123,10 @@ export class UserRegistrationService {
 
 
   // Add a movie to favorite Movies
-  addFavorite(movie: any): Observable<any> {
+  addFavorite(movieId: any): Observable<any> {
     const token = localStorage.getItem('token');
     const user = localStorage.getItem('user');
-    return this.http.post(`${apiUrl}/users/${user}/movies/${movie}`, {headers: new HttpHeaders(
+    return this.http.post(`${apiUrl}/users/${user}/movies/${movieId}`, {headers: new HttpHeaders(
       {
         Authorization: 'Bearer ' + token
       }

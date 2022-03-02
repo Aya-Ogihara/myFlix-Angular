@@ -85,13 +85,12 @@ export class ProfilePageComponent implements OnInit {
     this.dialog.open(UserDeleteFormComponent, {
       width: '360px',
     });
-    // this.fetchApiData.deleteUser(this.userName).subscribe((res) => {
-    //   this.snackbar.open('Your account has been removed', 'Bye', {
-    //     duration: 4000
-    //   });
-    //   localStorage.clear();
-    // });
-    // this.router.navigate(['welcome'])
+  }
+
+  updateUserDialog(): void {
+    this.dialog.open(UserUpdateFormComponent, {
+      width: '280px',
+    });
   }
 
   openDirectorDialog(name: string, bio: string): void {
