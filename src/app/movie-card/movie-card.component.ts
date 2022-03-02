@@ -15,6 +15,7 @@ export class MovieCardComponent implements OnInit {
   movies: any[] = [];
   FavoriteMovies: any[] = [];
   user: any[] = [];
+  iFavorite: any = false
 
   constructor(
     public fetchApiData: UserRegistrationService,
@@ -77,12 +78,13 @@ export class MovieCardComponent implements OnInit {
     });
   }
 
-  addFavoriteMovie(movie: string, title: string): void {
-    this.fetchApiData.addFavorite(movie).subscribe((res: any) => {
+  addFavoriteMovie(movieId: string, title: string): void {
+    const user = localStorage.getItem('user')
+    this.fetchApiData.addFavorite(user, movieId).subscribe((res: any) => {
       this.snackbar.open(`${title} has been added to your favorites!`, 'OK', {
         duration: 4000,
       });
-      console.log(this.FavoriteMovies);
+      //console.log(this.FavoriteMovies);
       this.ngOnInit();
     });
     return this.getFavoriteMovies();
@@ -102,13 +104,17 @@ export class MovieCardComponent implements OnInit {
     return this.getFavoriteMovies();
   }
 
-  isFavorite(movie: string): boolean {
-    return this.FavoriteMovies.some(item => item._id === movie)
+  isFavorite(movieId: string): boolean {
+    return this.FavoriteMovies.some(movie => movie._id === movieId)
   }
+
+
 
   toggleFavorite(movie: any): void {
     this.isFavorite(movie._id)
       ? this.removeFavoriteMovie(movie._id, movie.Title)
       : this.addFavoriteMovie(movie._id, movie.Title)
   }
+
+
 }

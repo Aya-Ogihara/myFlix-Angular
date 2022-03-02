@@ -115,7 +115,8 @@ export class ProfilePageComponent implements OnInit {
   }
 
   addFavoriteMovie(movie: string, title: string): void {
-    this.fetchApiData.addFavorite(movie).subscribe((res: any) => {
+    const user = localStorage.getItem('user')
+    this.fetchApiData.addFavorite(user, movie).subscribe((res: any) => {
       this.snackbar.open(`${title} has been added to your favorites!`, 'OK', {
         duration: 4000,
       });
