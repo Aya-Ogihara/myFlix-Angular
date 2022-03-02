@@ -48,6 +48,14 @@ export class MovieCardComponent implements OnInit {
     this.router.navigate(['profile'])
   }
 
+  userLogout(): void {
+    localStorage.clear();
+    this.snackbar.open('You successfully logged out. see you soon!', 'OK', {
+      duration: 2000
+    });
+    this.router.navigate(['welcome'])
+  }
+
   openDirectorDialog(name: string, bio: string): void {
     this.dialog.open(DirectorCardComponent, {
       data: { name: name, bio: bio },

@@ -23,4 +23,12 @@ export class ProfilePageComponent implements OnInit {
   goMovies(): void {
     this.router.navigate(['movies'])
   }
+
+  userLogout(): void {
+    localStorage.clear();
+    this.snackbar.open('You successfully logged out. see you soon!', 'OK', {
+      duration: 2000
+    });
+    this.router.navigate(['welcome'])
+  }
 }
