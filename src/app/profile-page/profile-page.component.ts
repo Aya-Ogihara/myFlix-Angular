@@ -9,6 +9,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./profile-page.component.scss']
 })
 export class ProfilePageComponent implements OnInit {
+  user: any = {};
+  userName = localStorage.getItem('user')
+  FavoriteMovies: any[] = []
 
   constructor(
     public fetchApiData: UserRegistrationService,
@@ -18,7 +21,28 @@ export class ProfilePageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.getUserInfo();
+    this.getFavoriteMovies();
   }
+
+  getUserInfo(): void {
+    const user = localStorage.getItem('user');
+    this.fetchApiData.getUser(user).subscribe((res: any) => {
+      this.user = res;
+      console.log(res)
+    })
+  }
+
+  getFavoriteMovies(): void {
+    const user = localStorage.getItem('user');
+    this.fetchApiData.getUser(user).subscribe((res: any) => {
+      this.FavoriteMovies = res.FavoriteMovies;
+      console.log(this.FavoriteMovies);
+      return this.FavoriteMovies
+    });
+  }
+
+  
 
   goMovies(): void {
     this.router.navigate(['movies'])

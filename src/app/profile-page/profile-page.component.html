@@ -11,7 +11,7 @@
     </button>
     <button
       class="navigation__btn"
-      mat-flat-button
+      mat-stroked-button
       color="accent"
       (click)="userLogout()"
     >
@@ -19,4 +19,57 @@
     </button>
   </nav>
 </header>
-<div class="profile">Profile page</div>
+<main class="main">
+  <div class="profile">
+    Current Profile
+    <p>{{user.Username}}</p>
+    <p>{{user.Email}}</p>
+    <p>{{user.Birthday | date}}</p>
+    <button mat-flat-button color="accent">Update my profile</button>
+    <button mat-stroked-button color="accent">Delete account</button>
+  </div>
+  <div class="favorite-movies">
+    <div class="favorite-movie-cards">
+      <mat-card *ngFor="let favorite of FavoriteMovies; let i = index">
+        <mat-card-header>
+          <mat-card-title>{{ favorite }}</mat-card-title>
+          <!-- <mat-card-subtitle
+            >Directed by: {{ movie.Director.Name }}</mat-card-subtitle
+          > -->
+        </mat-card-header>
+        <img
+          class="movie-cards__img"
+          src="{{ favorite.ImagePath }}"
+          alt="{{ favorite.Title }}"
+        />
+        <!-- <mat-card-actions>
+          <button
+            mat-stroked-button
+            color="accent"
+            (click)="openGenreDialog(movie.Genre.Name, movie.Genre.Description)"
+          >
+            Genre
+          </button>
+          <button
+            mat-stroked-button
+            color="accent"
+            (click)="openDirectorDialog(movie.Director.Name, movie.Director.Bio)"
+          >
+            Director
+          </button>
+          <button
+            mat-stroked-button
+            color="accent"
+            (click)="openSynopsisDialog(movie.Title, movie.Description)"
+          >
+            Synopsis
+          </button>
+          <button mat-icon-button (click)="toggleFavorite(movie)">
+            <mat-icon *ngIf="!isFavorite(movie._id)">favorite_border</mat-icon>
+            <mat-icon *ngIf="isFavorite(movie._id)">favorite</mat-icon>
+          </button>
+        </mat-card-actions> -->
+      </mat-card>
+    </div>
+  </div>
+</main>

@@ -7,3 +7,25 @@
 .navigation__btn {
   margin-left: 10px;
 }
+
+.main {
+  max-width: 1140px;
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.profiles {
+  
+}
+
+.profile {
+  width: 500px;
+  background: #999;
+}
+
+.favorite-movies{
+  width: 500px;
+  background: pink;
+}
