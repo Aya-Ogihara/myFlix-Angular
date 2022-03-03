@@ -5,7 +5,7 @@
 ## Live Demo
 [https://aya-ogihara.github.io/MEAN_myFlix/](https://aya-ogihara.github.io/MEAN_myFlix/)
 
-### Logiin Credentials
+### Login Credentials
 Username: `newtest01`
 Password: `newtest01`
 
