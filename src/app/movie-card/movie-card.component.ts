@@ -29,6 +29,10 @@ export class MovieCardComponent implements OnInit {
     this.getFavoriteMovies();
   }
 
+  /**
+   * Use API call to get all movies' data
+   * @function getMovies
+   */
   getMovies(): void {
     this.fetchApiData.getAllMovies().subscribe((res: any) => {
       this.movies = res;
@@ -37,6 +41,10 @@ export class MovieCardComponent implements OnInit {
     });
   }
 
+  /**
+   * Use API call to get the user's favorite movies
+   * @function getFavoriteMovies
+   */
   getFavoriteMovies(): void {
     const user = localStorage.getItem('user');
     this.fetchApiData.getUser(user).subscribe((res: any) => {
@@ -45,10 +53,18 @@ export class MovieCardComponent implements OnInit {
     });
   }
 
+  /**
+   * Navigate user to profile page
+   * @function goProfile
+   */
   goProfile(): void {
     this.router.navigate(['profile']);
   }
 
+  /**
+   * Logging out user 
+   * @function userLogout
+   */
   userLogout(): void {
     localStorage.clear();
     this.snackbar.open('You successfully logged out. see you soon!', 'OK', {
@@ -57,6 +73,11 @@ export class MovieCardComponent implements OnInit {
     this.router.navigate(['welcome']);
   }
 
+  /**
+   * Open a dialog to display DirectorCardComponent
+   * @param name {string}
+   * @param bio {string}
+   */
   openDirectorDialog(name: string, bio: string): void {
     this.dialog.open(DirectorCardComponent, {
       data: { name: name, bio: bio },
@@ -64,6 +85,11 @@ export class MovieCardComponent implements OnInit {
     });
   }
 
+  /**
+   * Open a dialog to display GenreCardComponent
+   * @param name {string}
+   * @param description {string}
+   */
   openGenreDialog(name: string, description: string): void {
     this.dialog.open(GenreCardComponent, {
       data: { name: name, description: description },
@@ -71,6 +97,11 @@ export class MovieCardComponent implements OnInit {
     });
   }
 
+  /**
+   * Open a dialog to display SynopsisCardComponent
+   * @param title {string}
+   * @param description {string}
+   */
   openSynopsisDialog(title: string, description: string): void {
     this.dialog.open(SynopsisCardComponent, {
       data: { title: title, description: description },
@@ -78,6 +109,11 @@ export class MovieCardComponent implements OnInit {
     });
   }
 
+  /**
+   * Use API call to add a movie into user's favorite movie
+   * @param movie {string}
+   * @param title {string}
+   */
   addFavoriteMovie(movie: string, title: string): void {
     const user = localStorage.getItem('user');
     this.fetchApiData.addFavorite(user, movie).subscribe((res: any) => {
@@ -89,6 +125,11 @@ export class MovieCardComponent implements OnInit {
     return this.getFavoriteMovies();
   }
 
+  /**
+   * Use API call to remove a movie from user's favorite movie
+   * @param movie {string}
+   * @param title {string}
+   */
   removeFavoriteMovie(movie: string, title: string): void {
     this.fetchApiData.deleteFavorite(movie).subscribe((res: any) => {
       this.snackbar.open(
@@ -103,6 +144,11 @@ export class MovieCardComponent implements OnInit {
     return this.getFavoriteMovies();
   }
 
+  /**
+   * Check if the movie is in the user's favorite movie list
+   * @param movie {string} 
+   * @returns boolean
+   */
   isFavorite(movie: string): any {
     if (this.FavoriteMovies.some((item) => item === movie)) {
       this.inFavorite = true;
@@ -112,7 +158,11 @@ export class MovieCardComponent implements OnInit {
       return this.inFavorite;
     }
   }
-
+  
+  /**
+   * toggle add/remove functions for user's favorite movies list
+   * @param movie {any}
+   */
   toggleFavorite(movie: any): void {
     if (this.isFavorite(movie._id)) {
       this.removeFavoriteMovie(movie._id, movie.Title);

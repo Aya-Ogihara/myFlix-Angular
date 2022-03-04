@@ -19,6 +19,9 @@ export class UserDeleteFormComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  /**
+   * Use API call to delete user's account
+   */
   deleteUser(): void {
     const userName = localStorage.getItem('user');
 
@@ -31,6 +34,9 @@ export class UserDeleteFormComponent implements OnInit {
     this.router.navigate(['welcome']);
   }
 
+  /**
+   * Close the dialog
+   */
   closeDialog(): void {
     this.dialog.closeAll();
   }

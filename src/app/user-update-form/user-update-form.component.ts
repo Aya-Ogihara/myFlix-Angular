@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-user-update-form',
   templateUrl: './user-update-form.component.html',
-  styleUrls: ['./user-update-form.component.scss']
+  styleUrls: ['./user-update-form.component.scss'],
 })
 export class UserUpdateFormComponent implements OnInit {
   @Input() userData = { Username: '', Password: '', Email: '', Birthday: '' };
@@ -17,21 +17,27 @@ export class UserUpdateFormComponent implements OnInit {
     public dialogRef: MatDialogRef<UserUpdateFormComponent>,
     public router: Router,
     public snackBar: MatSnackBar
-  ) { }
+  ) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
+  /**
+   * Use API call to update user's account information
+   */
   updateUser(): void {
-    const user = localStorage.getItem('user')
+    const user = localStorage.getItem('user');
     this.fetchApiData.updateUser(user, this.userData).subscribe(
       (result) => {
         this.dialogRef.close();
         console.log(result);
-        this.snackBar.open('Your account data has been updated! Please re-login', 'OK', {
-          duration: 4000,
-        });
-        this.router.navigate(['welcome'])
+        this.snackBar.open(
+          'Your account data has been updated! Please re-login',
+          'OK',
+          {
+            duration: 4000,
+          }
+        );
+        this.router.navigate(['welcome']);
       },
       (result) => {
         console.log(result);
@@ -39,9 +45,12 @@ export class UserUpdateFormComponent implements OnInit {
           duration: 4000,
         });
       }
-    )
+    );
   }
-
+  
+  /**
+   * Close the dialog
+   */
   closeDialog(): void {
     this.dialogRef.close();
   }
